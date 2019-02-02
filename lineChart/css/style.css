@@ -27,6 +27,7 @@
   grid-row-gap:15px;
   grid-column-gap:15px;
   justify-items:center;
+  align-items:center;
   }
 
 
@@ -42,10 +43,6 @@
   shape-rendering: crispEdges;
 }
 
-.line {
-  fill: none;
-  stroke-width: 2px;
-}
 
 .overlay {
   fill: none;
@@ -69,3 +66,56 @@
   stroke-width: 3px;
   stroke: grey;
 }
+
+
+/*slider*/
+
+
+.track,
+.track-range,
+.track-inset,
+.track-overlay {
+  stroke-linecap: round;
+}
+
+.track, .track-range {
+  stroke-opacity: 0.3;
+  stroke-width: 10px;
+}
+
+.track{
+  stroke: #000;
+  }
+
+.track-range{
+  stroke:blue;
+  }
+
+.track-inset {
+  stroke: #ddd;
+  stroke-width: 8px;
+}
+
+.track-overlay {
+  pointer-events: stroke;
+  stroke-width: 50px;
+  stroke: transparent;
+}
+
+.handle {
+  fill: #fff;
+  stroke: #000;
+  stroke-opacity: 0.5;
+  stroke-width: 1.25px;
+  cursor:grab;
+}
+
+.label{
+  font-size:12px;
+  }
+
+#slider-div{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }

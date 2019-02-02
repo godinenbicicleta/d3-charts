@@ -1,4 +1,3 @@
-let time;
 let formattedData = new Map();
 let coin = document.getElementById("coin-select").value;
 let variable;
@@ -20,6 +19,9 @@ let g = svg.append("g")
 //time parse for x-scale
 let parseTime = d3.timeParse("%d/%m/%Y");
 
+
+let firstDate  = parseTime("12/05/2013");
+let lastDate = parseTime("31/10/2017");
 
 //format yticks
 let formatSi = d3.format(".2s")
@@ -77,7 +79,6 @@ function main(data){
   console.log(data);
   
   for (let [coin, arr] of Object.entries(data)){
-    console.log(arr);
     formattedData.set(coin,
       arr.filter(d=>([d["24h_vol"] , d.price_usd, d.market_cap].every(x=>x) ))
       .map(d=>{
@@ -101,6 +102,10 @@ function update(data){
 
   variable = document.getElementById("var-select").value;
   yAxisLabel.text(yAxisOptions.get(variable));
+  data = data.filter(d=>{
+    return (d.date>=firstDate)&(d.date<=lastDate);
+    
+    })
   //set scale domains
   x.domain(d3.extent(data, d=>d.date));
   y.domain([
@@ -112,14 +117,13 @@ function update(data){
   xAxis.call(xAxisCall.scale(x));
   yAxis.call(yAxisCall.scale(y));
 
-  console.log(variable);
   let line = d3.line()
     .x(d=>x(d.date))
     .y(d=>y(d[variable]));
   //Add line to chart
   myline.transition()
     .ease(d3.easeLinear)
-    .duration(500)
+    .duration(200)
     .attr("d", line(data));
 
 g.append("rect")
@@ -184,3 +188,109 @@ document.getElementById("var-select")
 });
 
 
+//------- date slider ------//
+
+let sliderWidth = 300;
+let sliderMargin = {top:10, left:30, right:30, bottom:10};
+
+let sh = 50;
+let sw = sliderWidth-sliderMargin.right-sliderMargin.left;
+
+
+
+let startDate = parseTime("12/05/2013");
+let endDate = parseTime("31/10/2017");
+
+console.log(startDate);
+let tScale = d3.scaleTime()
+    .domain([startDate, endDate])
+    .range([0, sw])
+    .clamp(true);
+
+
+let sliderSvg = d3.select("#date-slider")
+  .append("svg")
+  .attr("class","slider")
+  .attr("height",sh)
+  .attr("width",sliderWidth)
+
+
+
+let slider = sliderSvg.append("g")
+  .attr("class", "slider")
+  .attr("transform", `translate(${sliderMargin.left},${sh/2})`);
+
+slider.append("line")
+  .attr("class", "track")
+  .attr("x1", tScale.range()[0])
+  .attr("x2", tScale.range()[1]);
+/*  .select(function(){return this.parentNode.appendChild(this.cloneNode(true));})
+    .attr("class", "track-inset")
+  .select(function(){return this.parentNode.appendChild(this.cloneNode(true));})
+    .attr("class", "track-overlay");
+    .call(d3.drag()
+      .on("start.interrupt", function(){slider.interrupt();})
+      .on("start drag", function(){hue(tScale.invert(d3.event.x));}));*/
+
+
+
+/*slider.insert("g", ".track-overlay")
+    .attr("class", "ticks")
+    .attr("transform", `translate(0,18)`);
+  .selectAll("text")
+    .data(tScale.ticks(5))
+    .enter()
+    .append("text")
+    .attr("x", tScale)
+    .attr("y", 10)
+    .attr("text-anchor", "middle")
+    .text(function(d) { console.log(d);return d3.timeFormat("%d/%m/%Y")(d) ; })*/
+
+/*let label = slider.append("text")
+    .attr("class", "label")
+    .attr("text-anchor", "middle")
+    .text(d3.timeFormat("%d/%m/%Y")(startDate))
+    .attr("x",tScale(startDate))
+    .attr("transform", "translate(0," + (-15) + ")")*/
+
+let overLine = slider.append("line")
+  .attr("class", "track-range")
+  .attr("x1", tScale.range()[0])
+  .attr("x2", tScale.range()[1]);
+
+let handleStart = slider.insert("circle", ".track-overlay")
+    .attr("class", "handle")
+    .attr("r", 9)
+    .attr("cx", tScale(startDate))
+    .call(d3.drag()
+      .on("start.interrupt", function(){handleStart.interrupt();})
+      .on("start drag", function(){hueStart(tScale.invert(d3.event.x));})  
+    );
+
+let handleEnd = slider.insert("circle", ".track-overlay")
+    .attr("class", "handle")
+    .attr("r", 9)
+    .attr("cx", tScale(endDate))
+    .call(d3.drag()
+      .on("start.interrupt", function(){handleEnd.interrupt();})
+      .on("start drag", function(){hueEnd(tScale.invert(d3.event.x));})  
+    );
+
+
+
+function hueStart(h){
+    handleStart.attr("cx", tScale(h));
+
+    overLine.attr("x1", tScale(h));
+
+    firstDate = h;
+    document.getElementById("dateLabel1").innerText = d3.timeFormat("%d/%m/%Y")(h);
+    update(formattedData.get(coin));
+  }
+function hueEnd(h){
+    handleEnd.attr("cx", tScale(h));
+    overLine.attr("x2", tScale(h));
+    lastDate = h;
+    document.getElementById("dateLabel2").innerText = d3.timeFormat("%d/%m/%Y")(h);
+    update(formattedData.get(coin));
+  }
