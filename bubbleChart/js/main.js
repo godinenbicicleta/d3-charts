@@ -162,7 +162,7 @@ document.getElementById("reset-button")
 document.getElementById("continent-select")
   .addEventListener("change", function(){
       update(formattedData[time]);
-    })
+    });
 
 function update(data){
   let t = d3.transition()
