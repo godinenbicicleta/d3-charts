@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <title>learning D3</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="../../d3.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+
+      <!-- First row contains date range, coin selector and variable selector -->
+
+      <!-- Date double slider -->
+      <div class="col-slider">
+        <div id="slider-div">
+          <label>Date:
+            <span id="dateLabel1">12/05/2013</span> - <span id="dateLabel2">31/10/2017</span>
+          </label>
+          <div id="date-slider"></div>
+        </div>
+      </div>
+
+      <!-- Coin selector  -->
+      <div class="col-selector">
+        <select id="cat-select" class="form-control">
+          <option selected value="none">None</option>
+          <option value="3d technology" >3d technology</option>
+          <option value="3d visualization" >3d visualization</option>
+          <option value="activation" >Activation</option>
+          <option value="agriculture" >Agriculture</option>
+          <option value="apps" >Apps</option>
+          <option value="architecture" >Architecture</option>
+          <option value="asset tracking" >Asset tracking</option>
+          <option value="augmented reality" >Augmented reality</option>
+          <option value="autonomous driving" >Autonomous driving</option>
+          <option value="blockchain" >Blockchain</option>
+          <option value="centimeter-accurate gnss sensors for autonomous vehicles" >Centimeter-accurate gnss sensors for autonomous vehicles</option>
+          <option value="climate risk management (for cities and supply chains)" >Climate risk management (for cities and supply chains)</option>
+          <option value="commodity risk monitoring" >Commodity risk monitoring</option>
+          <option value="computer vision" >Computer vision</option>
+          <option value="construction" >Construction</option>
+          <option value="decentralization" >Decentralization</option>
+          <option value="developer tools for the mobility market" >Developer tools for the mobility market</option>
+          <option value="drones" >Drones</option>
+          <option value="engineering software" >Engineering software</option>
+          <option value="gis" >Gis</option>
+          <option value="gis software development" >Gis software development</option>
+          <option value="human geography" >Human geography</option>
+          <option value="indoor mapping" >Indoor mapping</option>
+          <option value="infrastructure" >Infrastructure</option>
+          <option value="insurance underwriting/catastrophe modeling/flood certification" >Insurance underwriting/catastrophe modeling/flood certification</option>
+          <option value="internet of things" >Internet of things</option>
+          <option value="location data analytics" >Location data analytics</option>
+          <option value="location intelligence" >Location intelligence</option>
+          <option value="location-based marketing" >Location-based marketing</option>
+          <option value="map provider" >Map provider</option>
+          <option value="mapping" >Mapping</option>
+          <option value="maps" >Maps</option>
+          <option value="mobility" >Mobility</option>
+          <option value="monitoring and evaluation" >Monitoring and evaluation</option>
+          <option value="navigation" >Navigation</option>
+          <option value="photogrammetry" >Photogrammetry</option>
+          <option value="prioritized deforestation alerts" >Prioritized deforestation alerts</option>
+          <option value="remote sensing" >Remote sensing</option>
+          <option value="spatial data infrastructure" >Spatial data infrastructure</option>
+          <option value="surveying" >Surveying</option>
+          <option value="telco infrastructure planning" >Telco infrastructure planning</option>
+          <option value="telecommunication" >Telecommunication</option>
+          <option value="telecommunications" >Telecommunications</option>
+          <option value="transportation" >Transportation</option>
+          <option value="urban planning" >Urban planning</option>
+        </select>
+      </div>
+
+      <!-- Var selector  -->
+      <div class="col-var">
+        <select id="var-select" class="form-control">
+          <option selected value="price_usd">Price in dollars</option>
+          <option value="market_cap">Market capitalization</option>
+          <option value="24h_vol">24 hour trading volume</option>
+        </select>
+      </div>
+
+      
+      <!-- Second row contains chart-->
+      <div class="col-chart">
+        <div id="chart-area"></div>
+      </div>
+
+    </div>
+
+    <script src="js/circChart.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

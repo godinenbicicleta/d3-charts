@@ -1,0 +1,139 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  }
+
+.col-chart{
+  grid-area:chart;
+  }
+.col-slider{
+  grid-area:slider;
+  }
+.col-selector{
+  grid-area:selector;
+  }
+.col-var{
+  grid-area:variable;
+  }
+
+.container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows:1fr 4fr;
+  grid-template-areas:
+  "slider selector variable"
+  "chart chart chart";
+  grid-row-gap:15px;
+  grid-column-gap:15px;
+  justify-items:center;
+  align-items:center;
+  }
+
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #D4D8DA;
+  stroke-width: 2px;
+  shape-rendering: crispEdges;
+}
+
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: #F1F3F3;
+  stroke: #777;
+  stroke-width: 3px;
+}
+
+.hover-line {
+  stroke: #777;
+  stroke-width: 2px;
+  stroke-dasharray: 3,3;
+}
+
+.line {
+  fill: none;
+  stroke-width: 3px;
+  stroke: grey;
+}
+
+
+/*slider*/
+
+
+.track,
+.track-range,
+.track-inset,
+.track-overlay {
+  stroke-linecap: round;
+}
+
+.track, .track-range {
+  stroke-opacity: 0.3;
+  stroke-width: 10px;
+}
+
+.track{
+  stroke: #000;
+  }
+
+.track-range{
+  stroke:blue;
+  }
+
+.track-inset {
+  stroke: #ddd;
+  stroke-width: 8px;
+}
+
+.track-overlay {
+  pointer-events: stroke;
+  stroke-width: 50px;
+  stroke: transparent;
+}
+
+.handle {
+  fill: #fff;
+  stroke: #000;
+  stroke-opacity: 0.5;
+  stroke-width: 1.25px;
+  cursor:grab;
+}
+
+.label{
+  font-size:12px;
+  }
+
+#slider-div{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
+circle.circle-low {
+    fill: #bbb;
+    fill-opacity: .8;
+  }
+
+circle.circle-high {
+    fill: red;
+    fill-opacity: .8;
+  }
+
+text.node-label-low{
+    fill: #bbb;
+}
+
+text.node-label-high{
+  fill: red;
+}
